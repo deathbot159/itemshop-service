@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "itemshop-service", "itemshop-service\itemshop-service.njsproj", "{59BE3695-23A3-4545-B653-199A4CDD8B26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59BE3695-23A3-4545-B653-199A4CDD8B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59BE3695-23A3-4545-B653-199A4CDD8B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59BE3695-23A3-4545-B653-199A4CDD8B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59BE3695-23A3-4545-B653-199A4CDD8B26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D59ABC6A-1FAA-464C-ADD3-0D352C4DF952}
+	EndGlobalSection
+EndGlobal
