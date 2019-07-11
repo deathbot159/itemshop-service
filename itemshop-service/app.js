@@ -20,7 +20,7 @@ var server = net.createServer((c) => {
             console.log("Non-implemented packet: " + buffer.toString().replace(pluginKey, null));
         } else {
             console.log("WRONG PACKET KEY FETCHED! DISCONNECTING SOCKET!!!!");
-            c.end();
+            c.destroy();
         }
     });
 });
