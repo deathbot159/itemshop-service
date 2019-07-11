@@ -4,7 +4,7 @@ var net = require("net");
 
 var pluginKey = "PLUGIN1";
 
-var serverKey = "SERVER0";
+var serverKey = "SERVER0 ";
 
 var server = net.createServer((c) => {
     //connection
@@ -15,9 +15,10 @@ var server = net.createServer((c) => {
     c.on('data', (buffer) => {
         if (buffer.toString() === pluginKey + " try_to_connect") {
             console.log("Plugin connected to server!");
-            c.write(serverKey + " approved_connection");
+            c.write(serverKey + "approved_connection");
         } else if (buffer.toString().includes(pluginKey)) {
             console.log("Non-implemented packet: " + buffer.toString().replace(pluginKey, ""));
+            c.write(serverKey + "test_reply_packet");
         } else {
             console.log("WRONG PACKET KEY FETCHED! DISCONNECTING SOCKET!!!!");
             c.destroy();
