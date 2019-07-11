@@ -1,9 +1,9 @@
 {
   "name": "itemshop-service",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "itemshop-service",
   "main": "app.js",
   "author": {
-    "name": ""
+    "name": "deathbot159"
   }
 }
