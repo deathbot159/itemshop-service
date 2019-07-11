@@ -17,7 +17,7 @@ var server = net.createServer((c) => {
             console.log("Plugin connected to server!");
             c.write(serverKey + " approved_connection");
         } else if (buffer.toString().includes(pluginKey)) {
-            console.log("Non-implemented packet: " + buffer.toString().replace(pluginKey, null));
+            console.log("Non-implemented packet: " + buffer.toString().replace(pluginKey, ""));
         } else {
             console.log("WRONG PACKET KEY FETCHED! DISCONNECTING SOCKET!!!!");
             c.destroy();
