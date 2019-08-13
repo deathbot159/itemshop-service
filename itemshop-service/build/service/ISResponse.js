@@ -9,10 +9,7 @@ var ISResponse = /** @class */ (function () {
         this.message = message instanceof Array ? message : [message];
     }
     ISResponse.prototype.toString = function () {
-        var packet = ISServer_1.default + " ";
-        for (var i = 0; i < this.message.length; i++) {
-            packet += (i === this.message.length - 1 ? " " : "-") + this.message[i];
-        }
+        var packet = ISServer_1.default + " " + this.message;
         return packet;
     };
     return ISResponse;

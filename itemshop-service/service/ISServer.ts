@@ -2,7 +2,7 @@
 import ISClient from "./ISClient";
 
 export default class ISServer {
-    public serverKey: string = "SERVER";
+    public serverKey: string = "SERVER0";
     private server: Server;
 
     constructor() {

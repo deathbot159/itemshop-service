@@ -12,19 +12,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var ISResponse_1 = __importDefault(require("./ISResponse"));
 var shortid = __importStar(require("shortid"));
-var readline_1 = require("readline");
 var ISClient = /** @class */ (function () {
     function ISClient(server, socket) {
         var _this = this;
-        this.clientKey = "PLUGIN";
+        this.clientKey = "PLUGIN1";
         this.id = shortid.generate();
         this.server = server;
         this.socket = socket;
-        this.reader = readline_1.createInterface(socket);
-        this.reader.on("line", function (line) { return _this._onLine(line); });
         this._onConnection();
         this.socket.on("close", function () { return _this._onClose(); });
         this.socket.on("error", function (err) { return _this._onError(err); });
+        this.socket.on("data", function (data) { return _this._onData(data); });
     }
     ISClient.prototype.write = function (response) {
         var packet = response.toString();
@@ -33,6 +31,7 @@ var ISClient = /** @class */ (function () {
     };
     ISClient.prototype._onConnection = function () {
         console.log("[" + this.id + "] connected");
+        this.write(new ISResponse_1.default("response_packet_test"));
     };
     ISClient.prototype._onClose = function () {
         console.log("[" + this.id + "] disconnected");
@@ -40,13 +39,13 @@ var ISClient = /** @class */ (function () {
     ISClient.prototype._onError = function (err) {
         console.log("[" + this.id + "] Catched error: " + err.message);
     };
-    ISClient.prototype._onLine = function (line) {
-        if (line.length === 0) {
+    ISClient.prototype._onData = function (data) {
+        if (data.length === 0) {
             return;
         }
-        console.log("[" + this.id + "] < " + line);
-        var packet = line.split(" ");
-        var key = packet[0].toLowerCase();
+        console.log("[" + this.id + "] < " + data.toString());
+        var packet = data.toString().split(" ");
+        var key = packet[0].toUpperCase();
         var header = packet[1].toLowerCase();
         if (key !== this.clientKey) {
             console.log("[" + this.id + "] < Invalid client key");
@@ -54,7 +53,7 @@ var ISClient = /** @class */ (function () {
             return;
         }
         switch (header) {
-            case "try_connect":
+            case "try_to_connect":
                 this._handleTry_connect(packet);
                 break;
             default:

@@ -8,7 +8,7 @@ var ISClient_1 = __importDefault(require("./ISClient"));
 var ISServer = /** @class */ (function () {
     function ISServer() {
         var _this = this;
-        this.serverKey = "SERVER";
+        this.serverKey = "SERVER0";
         this.server = new net_1.Server();
         this.server.on("connection", function (socket) {
             new ISClient_1.default(_this, socket);
