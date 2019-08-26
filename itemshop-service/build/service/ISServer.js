@@ -11,7 +11,7 @@ var ISServer = /** @class */ (function () {
         var _this = this;
         this.serverKey = "SERVER0";
         this.serverList = new Array();
-        this.Discord = new ISDiscord_1.default();
+        this.Discord = new ISDiscord_1.default(this);
         this._isEnabled = false;
         this.server = new net_1.Server();
         this.server.on("connection", function (socket) {

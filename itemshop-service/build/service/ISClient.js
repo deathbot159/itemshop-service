@@ -1,7 +1,4 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -9,13 +6,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var ISResponse_1 = __importDefault(require("./ISResponse"));
 var shortid = __importStar(require("shortid"));
+var TryToConnectHandler_1 = __importDefault(require("./packetHandlers/TryToConnectHandler"));
+var PluginEnabledHandler_1 = __importDefault(require("./packetHandlers/PluginEnabledHandler"));
+var PlayerJoinedHandler_1 = __importDefault(require("./packetHandlers/PlayerJoinedHandler"));
 var ISClient = /** @class */ (function () {
     function ISClient(server, socket) {
         var _this = this;
         this.clientKey = "PLUGIN1";
+        this.enabled = false;
+        this.connectedPlayers = new Array();
+        this.clientName = "";
         this.id = shortid.generate();
         this.server = server;
         this.socket = socket;
@@ -24,46 +29,55 @@ var ISClient = /** @class */ (function () {
         this.socket.on("error", function (err) { return _this._onError(err); });
         this.socket.on("data", function (data) { return _this._onData(data); });
     }
-    ISClient.prototype.write = function (response) {
-        var packet = response.toString();
-        console.log("[" + this.id + "] > " + packet);
-        this.socket.write(packet);
-    };
     ISClient.prototype._onConnection = function () {
-        console.log("[" + this.id + "] connected");
-        this.write(new ISResponse_1.default("response_packet_test"));
+        console.log("[" + this.id + "] connected.");
     };
     ISClient.prototype._onClose = function () {
-        console.log("[" + this.id + "] disconnected");
+        console.log("[" + this.id + "] disconected");
     };
     ISClient.prototype._onError = function (err) {
         console.log("[" + this.id + "] Catched error: " + err.message);
     };
     ISClient.prototype._onData = function (data) {
-        if (data.length === 0) {
+        if (data.length === 0)
             return;
-        }
         console.log("[" + this.id + "] < " + data.toString());
-        var packet = data.toString().split(" ");
-        var key = packet[0].toUpperCase();
-        var header = packet[1].toLowerCase();
-        if (key !== this.clientKey) {
-            console.log("[" + this.id + "] < Invalid client key");
-            this.socket.end();
-            return;
-        }
-        switch (header) {
-            case "try_to_connect":
-                this._handleTry_connect(packet);
-                break;
-            default:
-                console.log("[" + this.id + "] Invalid packet: " + header);
+        var packets = data.toString().split("\n");
+        for (var i = 0; i <= packets.length - 1; i++) {
+            var packet = packets[i].toString().split(" ");
+            var key = packet[0].toUpperCase();
+            var header = packet[1].toLowerCase();
+            if (key !== this.clientKey) {
+                console.log("[" + this.id + "] Invalid client key. Disconnecting.");
+                this.socket.end();
+                return;
+            }
+            switch (header) {
+                case "try_to_connect":
+                    new TryToConnectHandler_1.default(this, packet);
+                    break;
+                case "plugin_enabled":
+                    new PluginEnabledHandler_1.default(this, packet);
+                    break;
+                case "player_joined":
+                    new PlayerJoinedHandler_1.default(this, packet);
+                    break;
+                case "player_leave":
+                    break;
+                default:
+                    console.log("[" + this.id + "] Invalid packet: " + header);
+            }
         }
     };
-    ISClient.prototype._handleTry_connect = function (packet) {
-        if (packet.length == 2) {
-            this.write(new ISResponse_1.default("approved_connection"));
-        }
+    ISClient.prototype.getServer = function () {
+        return this.server;
+    };
+    ISClient.prototype.setState = function (state) {
+        this.enabled = state;
+        return this;
+    };
+    ISClient.prototype.getID = function () {
+        return this.id;
     };
     return ISClient;
 }());

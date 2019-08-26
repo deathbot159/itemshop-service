@@ -7,11 +7,12 @@ var ISServer_1 = __importDefault(require("./service/ISServer"));
 var IS = new ISServer_1.default();
 IS.listen(8475);
 /*import express from "express";
+import MCClient from "./minecraft/MCClient";
 const app = express();
 app.use(express.static(__dirname + '/page'));
 const port = 3000;
 
-app.get('/', (req, res) => res.sendFile(__dirname + '/page/index.html'));
+app.get('/', (req, res) => res.send());
 
 app.post('/clicked', (req, res) => {
     const click = { clickTime: new Date() };

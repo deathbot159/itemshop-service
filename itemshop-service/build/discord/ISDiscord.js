@@ -4,15 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var discord_js_1 = __importDefault(require("discord.js"));
+var MessageHandler_1 = __importDefault(require("./handlers/MessageHandler"));
 var ISDiscord = /** @class */ (function () {
-    function ISDiscord() {
+    function ISDiscord(server) {
         var _this = this;
         this._bot = new discord_js_1.default.Client();
         this._token = "NjE1NDk4NDczNjQ2NTg3OTIz.XWO5qA.xMidbdVpZUkkwJJb4sBTly5Zbm4";
         this._channelInfoID = "615500280259280926";
         this._isEnabled = false;
         this._bot.login(this._token);
+        this._server = server;
         this._bot.on("ready", function () { return _this._onReady(); });
+        this._bot.on("message", function (message) { return new MessageHandler_1.default(_this._server, message); });
     }
     ISDiscord.prototype._onReady = function () {
         console.log("[Discord] Bot is ready.");

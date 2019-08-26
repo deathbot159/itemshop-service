@@ -72,6 +72,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="service\packetHandlers\PlayerJoinedHandler.ts" />
+    <TypeScriptCompile Include="service\packetHandlers\PlayerLeaveHandler.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="service\packetHandlers\PluginEnabledHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
