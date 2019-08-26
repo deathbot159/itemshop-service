@@ -5,11 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var ISServer_1 = __importDefault(require("./ISServer"));
 var ISResponse = /** @class */ (function () {
-    function ISResponse(message) {
-        this.message = message instanceof Array ? message : [message];
+    function ISResponse() {
     }
-    ISResponse.prototype.toString = function () {
-        var packet = ISServer_1.default + " " + this.message;
+    ISResponse.prototype.toPacket = function (message) {
+        var packet = ISServer_1.default + " " + message;
         return packet;
     };
     return ISResponse;
