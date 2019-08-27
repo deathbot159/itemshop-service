@@ -1,10 +1,11 @@
 ﻿import * as shortid from "shortid";
 import { Socket } from 'net';
 import ISServer from './ISServer';
+import MCClient from "../minecraft/MCClient";
+
 import TryToConnectHandler from "./packetHandlers/TryToConnectHandler";
 import PluginEnabledHandler from "./packetHandlers/PluginEnabledHandler";
 import PlayerJoinedHandler from "./packetHandlers/PlayerJoinedHandler";
-import MCClient from "../minecraft/MCClient";
 import PlayerLeaveHandler from "./packetHandlers/PlayerLeaveHandler";
 
 export default class ISClient {

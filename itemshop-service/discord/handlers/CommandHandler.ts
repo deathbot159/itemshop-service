@@ -2,6 +2,7 @@
 import ISServer from '../../service/ISServer';
 import ISClient from '../../service/ISClient';
 import MCClient from '../../minecraft/MCClient';
+import SendMessageCommand from '../commands/SendMessageCommand';
 
 export default class CommandHandler {
     private _message: Discord.Message;
@@ -29,6 +30,9 @@ export default class CommandHandler {
             case "server_list":
                 this._message.channel.send(this.getServerList());
                 break;
+            case "send_message":
+                new SendMessageCommand(this._server, message, this._args);
+                break;
             default:
                 this._message.channel.send("Invalid command.");
         }
@@ -41,7 +45,7 @@ export default class CommandHandler {
         for (let i = 0; i < this._server.serverList.length; i++) {
             list += this._server.serverList[i].clientName + "\n";
             let client: ISClient = this._server.serverList[i];
-            if (this._server.serverList[i].connectedPlayers.length === 0) list += "\tNo players active.";
+            if (this._server.serverList[i].connectedPlayers.length === 0) list += "\tNo players active.\n";
             else {
                 list += `\t ${client.connectedPlayers.length} players active:\n`;
                 client.connectedPlayers.forEach((player: MCClient) => {

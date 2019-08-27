@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="discord\handlers\" />
+    <Folder Include="discord\commands\" />
     <Folder Include="page\" />
     <Folder Include="service\packetHandlers\" />
     <Folder Include="discord\" />
@@ -57,6 +58,9 @@
     <TypeScriptCompile Include="discord\handlers\CommandHandler.ts" />
     <TypeScriptCompile Include="discord\handlers\MessageHandler.ts" />
     <TypeScriptCompile Include="discord\ISDiscord.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="discord\commands\SendMessageCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="minecraft\MCClient.ts">
