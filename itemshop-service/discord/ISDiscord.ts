@@ -1,4 +1,4 @@
-﻿import Discord from 'discord.js';
+﻿import Discord, { TextChannel } from 'discord.js';
 import MessageHandler from './handlers/MessageHandler';
 import ISServer from '../service/ISServer';
 
@@ -23,11 +23,13 @@ export default class ISDiscord {
     }
 
     private _onReady(): void {
-        console.log("[Discord] Bot is ready.");
+        this._server.CInput._send("[Discord] Bot is ready.");
+        this._server.CInput._prefix();
         this._bot.user.setActivity("Running at TypeScript!");
         this._isEnabled = true;
 
         this.sendInfo("Discord bot is ready!");
+        
     }
 
     public getInstance(): Discord.Client {
@@ -40,9 +42,9 @@ export default class ISDiscord {
 
     public sendInfo(value: string): void {
 
-        if (this._isEnabled === true)
-            this.getInstance().channels.find(x => x.id === this._channelInfoID).send(value);
-        else
+        if (this._isEnabled === true){
+            this.getInstance().user.client.channels.find("id", this._channelInfoID).send(value);
+        }else
             console.log("Bot is not enabled now! Cant send message.");
     }
 

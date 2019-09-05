@@ -18,7 +18,8 @@ var ISDiscord = /** @class */ (function () {
         this._bot.on("message", function (message) { return new MessageHandler_1.default(_this._server, message); });
     }
     ISDiscord.prototype._onReady = function () {
-        console.log("[Discord] Bot is ready.");
+        this._server.CInput._send("[Discord] Bot is ready.");
+        this._server.CInput._prefix();
         this._bot.user.setActivity("Running at TypeScript!");
         this._isEnabled = true;
         this.sendInfo("Discord bot is ready!");

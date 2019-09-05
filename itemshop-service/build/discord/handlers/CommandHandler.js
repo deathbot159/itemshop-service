@@ -1,5 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var SendMessageCommand_1 = __importDefault(require("../commands/SendMessageCommand"));
 var CommandHandler = /** @class */ (function () {
     function CommandHandler(server, message, content) {
         this._args = [];
@@ -15,6 +19,9 @@ var CommandHandler = /** @class */ (function () {
             case "server_list":
                 this._message.channel.send(this.getServerList());
                 break;
+            case "send_message":
+                new SendMessageCommand_1.default(this._server, message, this._args);
+                break;
             default:
                 this._message.channel.send("Invalid command.");
         }
@@ -28,7 +35,7 @@ var CommandHandler = /** @class */ (function () {
             list += this._server.serverList[i].clientName + "\n";
             var client = this._server.serverList[i];
             if (this._server.serverList[i].connectedPlayers.length === 0)
-                list += "\tNo players active.";
+                list += "\tNo players active.\n";
             else {
                 list += "\t " + client.connectedPlayers.length + " players active:\n";
                 client.connectedPlayers.forEach(function (player) {

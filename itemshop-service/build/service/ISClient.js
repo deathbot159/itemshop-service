@@ -14,6 +14,7 @@ var shortid = __importStar(require("shortid"));
 var TryToConnectHandler_1 = __importDefault(require("./packetHandlers/TryToConnectHandler"));
 var PluginEnabledHandler_1 = __importDefault(require("./packetHandlers/PluginEnabledHandler"));
 var PlayerJoinedHandler_1 = __importDefault(require("./packetHandlers/PlayerJoinedHandler"));
+var PlayerLeaveHandler_1 = __importDefault(require("./packetHandlers/PlayerLeaveHandler"));
 var ISClient = /** @class */ (function () {
     function ISClient(server, socket) {
         var _this = this;
@@ -63,6 +64,7 @@ var ISClient = /** @class */ (function () {
                     new PlayerJoinedHandler_1.default(this, packet);
                     break;
                 case "player_leave":
+                    new PlayerLeaveHandler_1.default(this, packet);
                     break;
                 default:
                     console.log("[" + this.id + "] Invalid packet: " + header);

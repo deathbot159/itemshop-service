@@ -6,12 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var net_1 = require("net");
 var ISClient_1 = __importDefault(require("./ISClient"));
 var ISDiscord_1 = __importDefault(require("../discord/ISDiscord"));
+var ConsoleInput_1 = __importDefault(require("../console/ConsoleInput"));
 var ISServer = /** @class */ (function () {
     function ISServer() {
         var _this = this;
         this.serverKey = "SERVER0";
         this.serverList = new Array();
         this.Discord = new ISDiscord_1.default(this);
+        this.CInput = new ConsoleInput_1.default(this);
         this._isEnabled = false;
         this.server = new net_1.Server();
         this.server.on("connection", function (socket) {

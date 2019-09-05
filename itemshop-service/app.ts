@@ -1,4 +1,7 @@
 ﻿import ISServer from "./service/ISServer";
+import ConsoleInput from "./console/ConsoleInput";
+
+
 const IS = new ISServer();
 
 IS.listen(8475);
