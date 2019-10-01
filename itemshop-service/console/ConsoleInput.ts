@@ -16,7 +16,7 @@ export default class ConsoleCommand{
         this.stdin.addListener("data", (d)=>this._handleInput(d.toString()));
     }
 
-    private _handleInput(data: String):void{
+    private _handleInput(data: String) : void{
         const msg: string[] = data.trim().split(" ");
         const command: String = msg[0];
         const args: string[] = msg.copyWithin(0, msg.length).splice(1);
@@ -89,6 +89,10 @@ export default class ConsoleCommand{
                     case "help":
                         this._send(`${ConsoleColor.FgRed}Help: ${ConsoleColor.Reset}Not available`);
                         break;
+                    case "broadcast":
+                    case "bc":
+                        this._handleSendBroadcastMessage(args);
+                        break;
                     default:
                         this._send(`${ConsoleColor.FgRed}Invalid command. Use 'help' to command list.`);
                 }
@@ -118,6 +122,30 @@ export default class ConsoleCommand{
     //discord
     private _handleChangeActivity(text: string){
         this._server.Discord.getInstance().user.setActivity(text.split(",").join(" "));
+    }
+
+    //minecraft
+    /**
+     * @name  _handleSendBroadcastMessage
+     * @param rawMsg
+     * @description Packet to client: broadcast <message>
+     */
+    private _handleSendBroadcastMessage(rawMsg: string[]): void {
+        if (rawMsg.length < 2) {
+            this._send(`${ConsoleColor.FgYellow}[Broadcast] Usage: broadcast/bc <server> <message>`); return;
+        }
+        let serverName = rawMsg[0];
+        let message: string = rawMsg.slice(1).toString().split(",").join("_");
+
+        let found: boolean = false;
+        this._server.serverList.forEach((value, index) => {
+            if (value.clientName === serverName) {
+                found = true;
+                value.socket.write(`${value.getServer().serverKey} broadcast ${message}`)
+            }
+        });
+        if (found) this._send(`${ConsoleColor.FgGreen}[Broadcast] Sended ${message.split("_").join(" ")} to ${serverName}`);
+        else this._send(`${ConsoleColor.FgRed}[Broadcast] Server ${serverName} isnt connected!`);
     }
 
 }

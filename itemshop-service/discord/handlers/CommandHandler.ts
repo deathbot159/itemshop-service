@@ -33,6 +33,7 @@ export default class CommandHandler {
             case "send_message":
                 new SendMessageCommand(this._server, message, this._args);
                 break;
+
             default:
                 this._message.channel.send("Invalid command.");
         }

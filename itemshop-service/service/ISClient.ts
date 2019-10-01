@@ -7,6 +7,7 @@ import TryToConnectHandler from "./packetHandlers/TryToConnectHandler";
 import PluginEnabledHandler from "./packetHandlers/PluginEnabledHandler";
 import PlayerJoinedHandler from "./packetHandlers/PlayerJoinedHandler";
 import PlayerLeaveHandler from "./packetHandlers/PlayerLeaveHandler";
+import MessageRecvHandler from "./packetHandlers/MessageRecvHandler";
 
 export default class ISClient {
     private clientKey: string = "PLUGIN1";
@@ -70,6 +71,9 @@ export default class ISClient {
                     break;
                 case "player_leave":
                     new PlayerLeaveHandler(this, packet);
+                    break;
+                case "message_recv":
+                    new MessageRecvHandler(this, packet);
                     break;
                 default:
                     console.log(`[${this.id}] Invalid packet: ${header}`);

@@ -1,5 +1,8 @@
-﻿try_to_connect
+﻿//client
+try_to_connect
 plugin_enabled <server_name>
 player_joined <player_name> <player_uuid>
 player_leave <player_name> <player_uuid>
 message_recv <player_name> <message>
+//server
+broadcast <server_name> <message>

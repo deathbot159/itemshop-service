@@ -8,6 +8,7 @@ export default class ISDiscord {
     private _token: string = "NjE1NDk4NDczNjQ2NTg3OTIz.XWO5qA.xMidbdVpZUkkwJJb4sBTly5Zbm4";
 
     private _channelInfoID: string = "615500280259280926";
+    private _chatLogID: string = "628517614166999040";
 
     private _isEnabled: boolean = false;
 
@@ -49,6 +50,17 @@ export default class ISDiscord {
             if (!((channel): channel is TextChannel => channel.type === "text")(channel)) return;
             channel.send(value);
         }else
+            console.log("Bot is not enabled now! Cant send message.");
+    }
+
+    public sendChatLog(value: string): void {
+        if (this._isEnabled === true) {
+            //zjebane zabezpiecznie wrr
+            const channel = this.getInstance().user.client.channels.find("id", this._chatLogID);
+            if (!channel) return;
+            if (!((channel): channel is TextChannel => channel.type === "text")(channel)) return;
+            channel.send(value);
+        } else
             console.log("Bot is not enabled now! Cant send message.");
     }
 

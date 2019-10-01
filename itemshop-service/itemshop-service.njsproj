@@ -44,6 +44,7 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="console\" />
     <Folder Include="discord\handlers\" />
     <Folder Include="discord\commands\" />
     <Folder Include="page\" />
@@ -56,6 +57,8 @@
     <TypeScriptCompile Include="app.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="console\ConsoleColor.ts" />
+    <TypeScriptCompile Include="console\ConsoleInput.ts" />
     <TypeScriptCompile Include="discord\handlers\CommandHandler.ts" />
     <TypeScriptCompile Include="discord\handlers\MessageHandler.ts" />
     <TypeScriptCompile Include="discord\ISDiscord.ts">
@@ -70,10 +73,10 @@
     <TypeScriptCompile Include="service\ISClient.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="service\ISResponse.ts">
+    <TypeScriptCompile Include="service\ISServer.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="service\ISServer.ts">
+    <TypeScriptCompile Include="service\packetHandlers\MessageRecvHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="service\packetHandlers\PlayerJoinedHandler.ts" />
