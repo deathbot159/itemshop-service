@@ -19,6 +19,9 @@ var ISServer = /** @class */ (function () {
         this.server.on("connection", function (socket) {
             _this.serverList.push(new ISClient_1.default(_this, socket));
         });
+        //this.server.on("error", (err: Error)=>{
+        //this.CInput._send(`${err.name} > ${err.message} \non:${err.stack}`);
+        //});
     }
     ISServer.prototype.listen = function (port) {
         this.server.listen(port);

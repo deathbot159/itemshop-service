@@ -24,8 +24,27 @@ var ConsoleCommand = /** @class */ (function () {
                 if (args[0] === "service" || args[0] === "discord" || args[0] === "mc" || args[0] === "default") {
                     if (args[0] === "default")
                         this.useDir = "~";
-                    else
-                        this.useDir = args[0];
+                    switch (args[0]) {
+                        case "discord":
+                            if (!this._server.Discord.isEnabled()) {
+                                this._send(ConsoleColor_1.default.FgRed + "Use: " + ConsoleColor_1.default.Reset + " Discord is not available right now.");
+                            }
+                            else {
+                                this.useDir = args[0];
+                            }
+                            break;
+                        case "service":
+                            if (!this._server.isEnabled()) {
+                                this._send(ConsoleColor_1.default.FgRed + "Use: " + ConsoleColor_1.default.Reset + " Service is not available right now.");
+                            }
+                            else {
+                                this.useDir = args[0];
+                            }
+                            break;
+                        case "mc":
+                            this.useDir = args[0];
+                            break;
+                    }
                 }
                 else {
                     this._send(ConsoleColor_1.default.FgRed + "Use: " + ConsoleColor_1.default.Reset + "Invalid subtype.");
@@ -98,6 +117,8 @@ var ConsoleCommand = /** @class */ (function () {
     };
     ConsoleCommand.prototype._handleClear = function () {
         var lines = process.stdout.rows;
+        if (lines === undefined)
+            lines = 0;
         for (var i = 0; i < lines; i++) {
             console.log('\r\n');
         }

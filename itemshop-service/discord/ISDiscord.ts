@@ -42,8 +42,12 @@ export default class ISDiscord {
 
     public sendInfo(value: string): void {
 
-        if (this._isEnabled === true){
-            this.getInstance().user.client.channels.find("id", this._channelInfoID).send(value);
+        if (this._isEnabled === true) {
+            //zjebane zabezpiecznie wrr
+            const channel = this.getInstance().user.client.channels.find("id", this._channelInfoID);
+            if (!channel) return;
+            if (!((channel): channel is TextChannel => channel.type === "text")(channel)) return;
+            channel.send(value);
         }else
             console.log("Bot is not enabled now! Cant send message.");
     }

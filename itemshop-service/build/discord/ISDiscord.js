@@ -31,9 +31,15 @@ var ISDiscord = /** @class */ (function () {
         return this._isEnabled;
     };
     ISDiscord.prototype.sendInfo = function (value) {
-        var _this = this;
-        if (this._isEnabled === true)
-            this.getInstance().channels.find(function (x) { return x.id === _this._channelInfoID; }).send(value);
+        if (this._isEnabled === true) {
+            //zjebane zabezpiecznie wrr
+            var channel = this.getInstance().user.client.channels.find("id", this._channelInfoID);
+            if (!channel)
+                return;
+            if (!(function (channel) { return channel.type === "text"; })(channel))
+                return;
+            channel.send(value);
+        }
         else
             console.log("Bot is not enabled now! Cant send message.");
     };

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "dev": "clear && ts-node-dev --respawn --transpileOnly ./app.ts",
+    "dev": "cls && ts-node-dev --respawn --transpileOnly ./app.ts",
     "prod": "tsc && node ./build/app.js"
   },
   "dependencies": {
