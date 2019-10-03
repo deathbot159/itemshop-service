@@ -11,9 +11,11 @@ export default class ISServer {
     public serverList: Array<ISClient> = new Array<ISClient>();
     public Discord: ISDiscord = new ISDiscord(this);
     public CInput: ConsoleInput = new ConsoleInput(this);
-    public Config: Config = new Config();
+    public config: Config = new Config();
 
     private _isEnabled: boolean = false;
+    
+    public debugMode: boolean = this.Config.getServiceConfig().debug;
 
     constructor() {
         this.server = new Server();
