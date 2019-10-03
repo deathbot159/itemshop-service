@@ -6,19 +6,22 @@ import Config from '../utils/Config';
 
 
 export default class ISServer {
-    public serverKey: string = "SERVER0";
+    public serverKey: string;
     private server: Server;
     public serverList: Array<ISClient> = new Array<ISClient>();
     public Discord: ISDiscord = new ISDiscord(this);
     public CInput: ConsoleInput = new ConsoleInput(this);
-    public config: Config = new Config();
+    public Config: Config = new Config();
 
     private _isEnabled: boolean = false;
     
     public debugMode: boolean = this.Config.getServiceConfig().debug;
+    
+    public clientWhitelist: string[] = this.Config.getClientsConfig().whitelist;
 
     constructor() {
         this.server = new Server();
+        this.serverkey = this.Config.getServiceConfig().serverKey;
         this.server.on("connection", (socket: Socket) => {
             this.serverList.push(new ISClient(this, socket));
         });
