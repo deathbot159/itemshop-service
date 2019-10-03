@@ -12,5 +12,9 @@ export default class Config{
   getServiceConfig(): JSON{
     return this._config.service;
   }
+  
+  getClientsConfig(): JSON{
+    return this._config.client;
+  }
 }
 
