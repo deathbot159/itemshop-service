@@ -4,5 +4,8 @@
     "port": 8475,
     "serverKey": "SERVER0",
     "debug": false
+  },
+  "client":{
+    "whitelist":["PLUGIN1"]
   }
 }
