@@ -1,5 +1,7 @@
 {
   "service":{
-    "name": "itemshop-service"
+    "name": "itemshop-service",
+    "port": 8475,
+    "debug": false
   }
 }
