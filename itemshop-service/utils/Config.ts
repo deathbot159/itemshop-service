@@ -1,5 +1,6 @@
 "use strict";
 export default class Config{
+  private _config: JSON;
   public constructor(){
     this._config = require("../config.json"); 
   }
@@ -7,7 +8,9 @@ export default class Config{
   getConfig(): JSON{
       return this._config;
   }
-
-  private _config: JSON;
+  
+  getServiceConfig(): JSON{
+    return this._config.service;
+  }
 }
 
