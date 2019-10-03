@@ -53,6 +53,12 @@ export default class ISClient {
             const key = packet[0].toUpperCase();
             const header = packet[1].toLowerCase();
 
+            if(!this.server.clientWhitelisted.includes("key")){
+                console.log(`[${this.id}] Client key isnt whitelisted! Disconnecting.`);
+                this.socket.end();
+                return;
+            }
+            
             if (key !== this.clientKey) {
                 console.log(`[${this.id}] Invalid client key. Disconnecting.`);
                 this.socket.end();
