@@ -1,7 +1,8 @@
 ﻿import { Server, Socket } from "net";
 import ISClient from "./ISClient";
 import ISDiscord from "../discord/ISDiscord";
-import ConsoleInput from '../console/ConsoleInput'
+import ConsoleInput from '../console/ConsoleInput';
+import Config from '../utils/Config';
 
 
 export default class ISServer {
@@ -10,6 +11,7 @@ export default class ISServer {
     public serverList: Array<ISClient> = new Array<ISClient>();
     public Discord: ISDiscord = new ISDiscord(this);
     public CInput: ConsoleInput = new ConsoleInput(this);
+    public Config: Config = new Config();
 
     private _isEnabled: boolean = false;
 
